@@ -1,0 +1,7 @@
+.codex
+bin/
+.terraform/
+.terraform.lock.hcl
+.tfplugindocs-work/
+*.tfstate
+*.tfstate.*
