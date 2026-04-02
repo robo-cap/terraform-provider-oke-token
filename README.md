@@ -6,7 +6,6 @@ This repository intentionally contains only:
 
 - Provider authentication configuration compatible with the OCI provider auth modes
 - A single data source: `oketoken_cluster_auth`
-- A compatibility alias: `oci_containerengine_cluster_auth`
 
 It intentionally does not contain the upstream OCI provider's:
 
@@ -30,14 +29,14 @@ It intentionally does not contain the upstream OCI provider's:
 ```hcl
 terraform {
   required_providers {
-    oke-token = {
+    oketoken = {
       source  = "robo-cap/oke-token"
-      version = "1.0.0"
+      version = "0.1.0"
     }
   }
 }
 
-provider "oke-token" {}
+provider "oketoken" {}
 
 data "oketoken_cluster_auth" "cluster" {
   cluster_id = "ocid1.cluster.oc1..example"

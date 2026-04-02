@@ -14,12 +14,11 @@ import (
 )
 
 const (
-	Version                 = "1.0.0"
+	Version                 = "0.1.0"
 	ProviderTypeName        = "oke-token"
 	ProviderSourceAddress   = "robo-cap/oke-token"
 	ProviderAddress         = "registry.terraform.io/robo-cap/oke-token"
 	PrimaryDataSourceName   = "oketoken_cluster_auth"
-	CompatDataSourceName    = "oci_containerengine_cluster_auth"
 	AuthAPIKey              = "ApiKey"
 	AuthInstancePrincipal   = "InstancePrincipal"
 	AuthInstanceWithCerts   = "InstancePrincipalWithCerts"
@@ -108,7 +107,6 @@ func New() *schema.Provider {
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			PrimaryDataSourceName: dataSourceClusterAuth(),
-			CompatDataSourceName:  dataSourceClusterAuth(),
 		},
 		ConfigureFunc: configureProvider,
 	}

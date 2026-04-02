@@ -15,14 +15,14 @@ The `oke-token` provider generates short-lived authentication tokens for Oracle 
 ```terraform
 terraform {
   required_providers {
-    oke-token = {
+    oketoken = {
       source  = "robo-cap/oke-token"
-      version = "1.0.0"
+      version = "0.1.0"
     }
   }
 }
 
-provider "oke-token" {
+provider "oketoken" {
   auth             = "ApiKey"
   tenancy_ocid     = "ocid1.tenancy.oc1..exampleuniqueID"
   user_ocid        = "ocid1.user.oc1..exampleuniqueID"

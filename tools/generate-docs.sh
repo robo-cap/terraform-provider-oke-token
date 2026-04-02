@@ -4,7 +4,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_DIR="$ROOT_DIR/.tfplugindocs-work"
-PLUGIN_DIR="$WORK_DIR/plugins/registry.terraform.io/hashicorp/oke-token/0.0.1/linux_amd64"
+PLUGIN_DIR="$WORK_DIR/plugins/registry.terraform.io/robo-cap/oke-token/0.0.1/linux_amd64"
 SCHEMA_FILE="$WORK_DIR/providers-schema.json"
 
 cleanup() {
@@ -18,7 +18,15 @@ mkdir -p "$PLUGIN_DIR"
 go build -o "$PLUGIN_DIR/terraform-provider-oke-token" "$ROOT_DIR"
 
 cat > "$WORK_DIR/provider.tf" <<'EOF'
-provider "oke-token" {}
+terraform {
+  required_providers {
+    oketoken = {
+      source = "robo-cap/oke-token"
+    }
+  }
+}
+
+provider "oketoken" {}
 EOF
 
 terraform -chdir="$WORK_DIR" init -backend=false -get=false -plugin-dir=./plugins >/dev/null
