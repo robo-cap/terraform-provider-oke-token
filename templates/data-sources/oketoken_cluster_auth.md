@@ -24,12 +24,9 @@ terraform {
 provider "oketoken" {}
 
 data "oketoken_cluster_auth" "example" {
-  cluster_id      = "ocid1.cluster.oc1.iad.exampleuniqueID"
-  refresh_trigger = timestamp()
+  cluster_id = "ocid1.cluster.oc1.iad.exampleuniqueID"
 }
 ```
-
-Use `refresh_trigger = timestamp()` when you want Terraform to defer the datasource read until apply. That produces the freshest token a normal Terraform datasource can provide.
 
 ## Schema
 
@@ -39,7 +36,7 @@ Use `refresh_trigger = timestamp()` when you want Terraform to defer the datasou
 
 ### Optional
 
-- `refresh_trigger` (String) Arbitrary value that forces the data source to be re-evaluated when it changes. Set this to `timestamp()` to defer token generation until apply and get the freshest token Terraform can provide.
+- `refresh_trigger` (String) Arbitrary value that forces the data source to be re-evaluated when it changes. Set this to `timestamp()` to defer token generation until apply and get the freshest token Terraform can provide. Do not use this when another provider must consume the token during planning, because Terraform will treat the token as unknown until apply.
 
 ### Read-Only
 

@@ -36,7 +36,7 @@ func dataSourceClusterAuth() *schema.Resource {
 			"refresh_trigger": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				Description: "Arbitrary value that forces the data source to be re-evaluated when it changes. Set this to `timestamp()` to defer token generation until apply and get the freshest token Terraform can provide.",
+				Description: "Arbitrary value that forces the data source to be re-evaluated when it changes. Set this to `timestamp()` to defer token generation until apply and get the freshest token Terraform can provide. Do not use this when another provider must consume the token during planning, because Terraform will treat the token as unknown until apply.",
 			},
 			"token": {
 				Type:        schema.TypeString,
