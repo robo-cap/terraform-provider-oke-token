@@ -33,6 +33,11 @@ func dataSourceClusterAuth() *schema.Resource {
 				Required:    true,
 				Description: "The OCID of the OKE cluster.",
 			},
+			"refresh_trigger": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "Arbitrary value that forces the data source to be re-evaluated when it changes. Set this to `timestamp()` to defer token generation until apply and get the freshest token Terraform can provide.",
+			},
 			"token": {
 				Type:        schema.TypeString,
 				Computed:    true,
@@ -60,12 +65,13 @@ func readClusterAuth(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 
-	result, err := generateClusterAuthToken(providerMeta.ContainerEngineClient.Signer, region, clusterID, time.Now().UTC())
+	createdAt := time.Now().UTC()
+	result, err := generateClusterAuthToken(providerMeta.ContainerEngineClient.Signer, region, clusterID, createdAt)
 	if err != nil {
 		return err
 	}
 
-	d.SetId(clusterID)
+	d.SetId(fmt.Sprintf("%s,%s", clusterID, createdAt.Format(time.RFC3339Nano)))
 	if err := d.Set("token", result.Token); err != nil {
 		return err
 	}

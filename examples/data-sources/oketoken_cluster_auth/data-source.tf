@@ -1,8 +1,7 @@
 terraform {
   required_providers {
     oketoken = {
-      source  = "robo-cap/oke-token"
-      version = "0.1.0"
+      source = "robo-cap/oke-token"
     }
   }
 }
@@ -10,5 +9,6 @@ terraform {
 provider "oketoken" {}
 
 data "oketoken_cluster_auth" "example" {
-  cluster_id = "ocid1.cluster.oc1.iad.exampleuniqueID"
+  cluster_id      = "ocid1.cluster.oc1.iad.exampleuniqueID"
+  refresh_trigger = timestamp()
 }

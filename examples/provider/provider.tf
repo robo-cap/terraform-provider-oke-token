@@ -1,8 +1,7 @@
 terraform {
   required_providers {
     oketoken = {
-      source  = "robo-cap/oke-token"
-      version = "0.1.0"
+      source = "robo-cap/oke-token"
     }
   }
 }

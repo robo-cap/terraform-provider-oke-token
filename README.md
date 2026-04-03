@@ -30,8 +30,7 @@ It intentionally does not contain the upstream OCI provider's:
 terraform {
   required_providers {
     oketoken = {
-      source  = "robo-cap/oke-token"
-      version = "0.1.0"
+      source = "robo-cap/oke-token"
     }
   }
 }
@@ -39,7 +38,8 @@ terraform {
 provider "oketoken" {}
 
 data "oketoken_cluster_auth" "cluster" {
-  cluster_id = "ocid1.cluster.oc1..example"
+  cluster_id      = "ocid1.cluster.oc1..example"
+  refresh_trigger = timestamp()
 }
 
 output "token" {
@@ -47,6 +47,8 @@ output "token" {
   sensitive = true
 }
 ```
+
+Use `refresh_trigger = timestamp()` when you want Terraform to generate the token as late as a normal data source allows. That makes Terraform defer the read until apply, which is usually the best fit for a 4-minute token.
 
 ## Local build
 
